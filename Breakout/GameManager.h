@@ -7,6 +7,7 @@
 #include "PowerupManager.h"
 #include "MessagingSystem.h"
 #include "UI.h"
+#include "MultiBall.h"
 
 
 
@@ -33,6 +34,7 @@ private:
     float _time;
     float _timeLastPowerupSpawned;
     int _lives;
+    int _ballCount;
     bool _levelComplete;
     std::pair<POWERUPS, float> _powerupInEffect;
 
@@ -42,6 +44,7 @@ private:
     sf::RenderWindow* _window;
     Paddle* _paddle;
     Ball* _ball;
+    MultiBall* _multiBall;
     BrickManager* _brickManager;
     PowerupManager* _powerupManager;
     MessagingSystem* _messagingSystem;

@@ -14,20 +14,28 @@ public:
     void render();
     void setVelocity(float coeff, float duration);
     void setFireBall(float duration);
+    void setMultiBall(float duration);
+    void setDirection();
+    sf::Vector2f getBallPosition();
 
 private:
-    sf::CircleShape _sprite;
-    sf::Vector2f _direction;
+    
     sf::RenderWindow* _window;
     float _velocity;
     bool _isAlive;
     bool _isFireBall;
+    bool _isMultiBall;
     float _timeWithPowerupEffect;
 
     GameManager* _gameManager;  // Reference to the GameManager
 
 
-    static constexpr float RADIUS = 10.0f;      
+         
     static constexpr float VELOCITY = 350.0f;   // for reference.
+
+protected:
+    sf::CircleShape _sprite;
+    sf::Vector2f _direction;
+    static constexpr float RADIUS = 10.0f;
 };
 

@@ -146,12 +146,14 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)/SFML/include</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="MessagingSystem.cpp" />
+    <ClCompile Include="MultiBall.cpp" />
     <ClCompile Include="Paddle.cpp" />
     <ClCompile Include="PowerupBase.cpp" />
     <ClCompile Include="PowerupBigPaddle.cpp" />
     <ClCompile Include="PowerupFastBall.cpp" />
     <ClCompile Include="PowerupFireBall.cpp" />
     <ClCompile Include="PowerupManager.cpp" />
+    <ClCompile Include="PowerupMultiBall.cpp" />
     <ClCompile Include="PowerupSlowBall.cpp" />
     <ClCompile Include="PowerupSmallPaddle.cpp" />
     <ClCompile Include="UI.cpp" />
@@ -163,12 +165,14 @@
     <ClInclude Include="CONSTANTS.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="MessagingSystem.h" />
+    <ClInclude Include="MultiBall.h" />
     <ClInclude Include="Paddle.h" />
     <ClInclude Include="PowerupBase.h" />
     <ClInclude Include="PowerupBigPaddle.h" />
     <ClInclude Include="PowerupFastBall.h" />
     <ClInclude Include="PowerupFireBall.h" />
     <ClInclude Include="PowerupManager.h" />
+    <ClInclude Include="PowerupMultiBall.h" />
     <ClInclude Include="PowerupSlowBall.h" />
     <ClInclude Include="PowerupSmallPaddle.h" />
     <ClInclude Include="UI.h" />

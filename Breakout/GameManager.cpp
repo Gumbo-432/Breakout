@@ -4,8 +4,8 @@
 #include <iostream>
 
 GameManager::GameManager(sf::RenderWindow* window)
-    : _window(window), _paddle(nullptr), _ball(nullptr), _brickManager(nullptr), _powerupManager(nullptr),
-    _messagingSystem(nullptr), _ui(nullptr), _pause(false), _time(0.f), _lives(3), _pauseHold(0.f), _levelComplete(false),
+    : _window(window), _paddle(nullptr), _ball(nullptr), _multiBall(nullptr), _brickManager(nullptr), _powerupManager(nullptr),
+    _messagingSystem(nullptr), _ui(nullptr), _pause(false), _time(0.f), _lives(3), _ballCount(1), _pauseHold(0.f), _levelComplete(false),
     _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f)
 {
     _font.loadFromFile("font/montS.ttf");
@@ -69,6 +69,18 @@ void GameManager::update(float dt)
 
     // timer.
     _time += dt;
+
+    if (_powerupInEffect.first == multiball && _ballCount == 1)
+    {
+        _multiBall = new MultiBall(_window, 400.0f, this);
+        _multiBall->setDirection();
+        _ballCount++;
+    }
+    else if(_powerupInEffect.first == none && _ballCount == 2)
+    {
+        
+        _ballCount--;
+    }
 
 
     if (_time > _timeLastPowerupSpawned + POWERUP_FREQUENCY && rand()%700 == 0)      // TODO parameterise

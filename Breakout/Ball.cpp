@@ -3,7 +3,7 @@
 
 Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
     : _window(window), _velocity(velocity), _gameManager(gameManager),
-    _timeWithPowerupEffect(0.f), _isFireBall(false), _isAlive(true), _direction({1,1})
+    _timeWithPowerupEffect(0.f), _isFireBall(false), _isAlive(true), _isMultiBall(false), _direction({1,1})
 {
     _sprite.setRadius(RADIUS);
     _sprite.setFillColor(sf::Color::Cyan);
@@ -29,6 +29,8 @@ void Ball::update(float dt)
         {
             setFireBall(0);    // disable fireball
             _sprite.setFillColor(sf::Color::Cyan);  // back to normal colour.
+
+            setMultiBall(0);
         }        
     }
 
@@ -39,6 +41,7 @@ void Ball::update(float dt)
         int flicker = rand() % 50 + 205; // Random value between 205 and 255
         _sprite.setFillColor(sf::Color(flicker, flicker / 2, 0)); // Orange flickering color
     }
+
 
     // Update position with a subtle floating-point error
     _sprite.move(_direction * _velocity * dt);
@@ -62,9 +65,17 @@ void Ball::update(float dt)
     // lose life bounce
     if (position.y > windowDimensions.y)
     {
-        _sprite.setPosition(0, 300);
-        _direction = { 1, 1 };
-        _gameManager->loseLife();
+        if (_isMultiBall)
+        {
+            position.y = position.y += 10;
+            _direction.y *= -1;
+        }
+        else
+        {
+            _sprite.setPosition(0, 300);
+            _direction = { 1, 1 };
+            _gameManager->loseLife();
+        }
     }
 
     // collision with paddle
@@ -113,4 +124,29 @@ void Ball::setFireBall(float duration)
     }
     _isFireBall = false;
     _timeWithPowerupEffect = 0.f;    
+}
+
+void Ball::setMultiBall(float duration)
+{
+    if (duration)
+    {
+        _isMultiBall = true;
+        _timeWithPowerupEffect = duration;
+
+        return;
+    }
+
+    _isMultiBall = false;
+    _timeWithPowerupEffect = 0.f;
+    
+}
+
+void Ball::setDirection()
+{
+    _direction = { 1, 1 };
+}
+
+sf::Vector2f Ball::getBallPosition()
+{
+    return _sprite.getPosition();
 }
