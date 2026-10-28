@@ -7,7 +7,6 @@
 #include "PowerupManager.h"
 #include "MessagingSystem.h"
 #include "UI.h"
-#include "MultiBall.h"
 
 
 
@@ -44,7 +43,7 @@ private:
     sf::RenderWindow* _window;
     Paddle* _paddle;
     Ball* _ball;
-    MultiBall* _multiBall;
+    Ball* _multiBall;
     BrickManager* _brickManager;
     PowerupManager* _powerupManager;
     MessagingSystem* _messagingSystem;

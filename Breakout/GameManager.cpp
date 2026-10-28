@@ -20,7 +20,12 @@ void GameManager::initialize()
     _paddle = new Paddle(_window);
     _brickManager = new BrickManager(_window, this);
     _messagingSystem = new MessagingSystem(_window);
-    _ball = new Ball(_window, 400.0f, this); 
+    _ball = new Ball(_window, 400.0f, this, 0, 300); 
+
+    //Spawns a second ball outside of game window. Sets direction and colour
+    _multiBall = new Ball(_window, 0.f, this, -100, 300);
+    _multiBall->setDirection({ 0, 0 });
+
     _powerupManager = new PowerupManager(_window, _paddle, _ball);
     _ui = new UI(_window, _lives, this);
 
@@ -70,15 +75,21 @@ void GameManager::update(float dt)
     // timer.
     _time += dt;
 
+    //Moves second ball to first ball position when multiBall.  Creates the illusion of a ball being created.
     if (_powerupInEffect.first == multiball && _ballCount == 1)
     {
-        _multiBall = new MultiBall(_window, 400.0f, this);
-        _multiBall->setDirection();
+        _multiBall->setMultiBall(5.0f);
+        _multiBall->setMultiColour();
+        _multiBall->setMultiPosition(_ball->getBallPosition());
+        _multiBall->setMultiVelocity(400.f);
+        _multiBall->setDirection({1, 1});
         _ballCount++;
     }
-    else if(_powerupInEffect.first == none && _ballCount == 2)
+    else if(_powerupInEffect.first == none && _ballCount == 2) //Moves the ball back off screen. Sets velocity and direction to zero.
     {
-        
+        _multiBall->setMultiPosition({ -100, 300 });
+        _multiBall->setMultiVelocity(0.f);
+        _multiBall->setDirection({ 0, 0 });
         _ballCount--;
     }
 
@@ -96,6 +107,7 @@ void GameManager::update(float dt)
     // update everything 
     _paddle->update(dt);
     _ball->update(dt);
+    _multiBall->update(dt);
     _powerupManager->update(dt);
 }
 
@@ -111,6 +123,7 @@ void GameManager::render()
 {
     _paddle->render();
     _ball->render();
+    _multiBall->render();
     _brickManager->render();
     _powerupManager->render();
     _window->draw(_masterText);

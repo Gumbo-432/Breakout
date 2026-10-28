@@ -8,14 +8,17 @@ class GameManager;  // forward declaration
 
 class Ball {
 public:
-    Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager);
+    Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager, float x_pos, float y_pos);
     ~Ball();
     void update(float dt);
     void render();
     void setVelocity(float coeff, float duration);
     void setFireBall(float duration);
     void setMultiBall(float duration);
-    void setDirection();
+    void setDirection(sf::Vector2f direction);
+    void setMultiVelocity(float multiVelocity);
+    void setMultiPosition(sf::Vector2f multiPosition);
+    void setMultiColour();
     sf::Vector2f getBallPosition();
 
 private:

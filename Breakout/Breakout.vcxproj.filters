@@ -66,9 +66,6 @@
     <ClCompile Include="PowerupMultiBall.cpp">
       <Filter>Powerups</Filter>
     </ClCompile>
-    <ClCompile Include="MultiBall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h">
@@ -118,9 +115,6 @@
     </ClInclude>
     <ClInclude Include="PowerupMultiBall.h">
       <Filter>Powerups</Filter>
-    </ClInclude>
-    <ClInclude Include="MultiBall.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

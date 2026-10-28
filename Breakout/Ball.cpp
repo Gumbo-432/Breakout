@@ -1,13 +1,13 @@
 #include "Ball.h"
 #include "GameManager.h" // avoid cicular dependencies
 
-Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
+Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager, float x_pos, float y_pos)
     : _window(window), _velocity(velocity), _gameManager(gameManager),
     _timeWithPowerupEffect(0.f), _isFireBall(false), _isAlive(true), _isMultiBall(false), _direction({1,1})
 {
     _sprite.setRadius(RADIUS);
     _sprite.setFillColor(sf::Color::Cyan);
-    _sprite.setPosition(0, 300);
+    _sprite.setPosition(x_pos, y_pos);
 }
 
 Ball::~Ball()
@@ -65,7 +65,7 @@ void Ball::update(float dt)
     // lose life bounce
     if (position.y > windowDimensions.y)
     {
-        if (_isMultiBall)
+        if (_isMultiBall) //Stops lives being lost while multiBall is active. Ball will instead boince off bottom.
         {
             position.y = position.y += 10;
             _direction.y *= -1;
@@ -141,10 +141,27 @@ void Ball::setMultiBall(float duration)
     
 }
 
-void Ball::setDirection()
+//------------------------------------------------ MULTIBALL FUNCTIONS-------------------
+void Ball::setDirection(sf::Vector2f direction)
 {
-    _direction = { 1, 1 };
+    _direction = direction;
 }
+
+void Ball::setMultiVelocity(float multiVelocity)
+{
+    _velocity = multiVelocity;
+}
+
+void Ball::setMultiPosition(sf::Vector2f multiPosition) 
+{
+    _sprite.setPosition(multiPosition);
+}
+
+void Ball::setMultiColour()
+{
+    _sprite.setFillColor(sf::Color::Magenta);
+}
+//---------------------------------------------------------------------------------------
 
 sf::Vector2f Ball::getBallPosition()
 {
